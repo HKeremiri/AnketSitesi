@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+@model LoginViewModel
+<form asp-controller="Account" method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    
+    <div class="form-floating mb-3">
+        <input asp-for="UserName" class="form-control">
+        <label asp-for="UserName">Kullanıcı Adı</label>
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for=Password class="form-control" >
+        <label asp-for="Password">Şifre</label>
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="form-check mb-3">
+        <input asp-for="RememberMe" class="form-check-input"  />
+        <label asp-for="RememberMe" class="form-check-label">Beni Hatırla</label>
+        <span asp-validation-for="RememberMe"></span>
+        
+       
+    </div>
+
+    <div class="form-floating mb-3">
+        <button type="submit" class="btn btn-outline-success">Giriş Yap</button>
+        <a asp-action="ForgotPassword" class="btn btn-outline-success">Şifremi Unuttum</a>
+
+
+    </div>
+
+    <p><a asp-controller="Account" asp-action="Register" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Kayıt Olmak için Tıklayınız</a></p>
+</form>
+

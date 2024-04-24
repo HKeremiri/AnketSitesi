@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+@model Anket
+
+<label>Katılmak istediğiniz anketin numarasını giriniz: </label>
+<br />
+
+<form asp-controller="Survey" asp-action="Search" method="post">      
+<input type="text"  asp-for="@Model.AnketId" />
+
+<button type="submit" class="btn btn-dark">Katıl</button>
+</form>

@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+@model SurveyCreateViewModel
+
+<form asp-action="SurveyCreate" asp-controller="Survey" method="post" id="surveyForm">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="SurveyCreateDate" value="@DateTime.Now" />
+
+  
+
+    <div class="mb-3">
+        <label class="form-label"><b>@User.Identity.Name</b></label>
+        
+        <input type="hidden" asp-for="CreatedBy" value="@User.Identity.Name"   readonly />
+      
+        
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label"><b>Anket Adı</b></label>
+        <input asp-for="AnketAdi" class="form-control" />
+        <span asp-validation-for="AnketAdi" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label"><b>Anketin Açıklaması</b></label>
+        <input asp-for="AnketDetay" class="form-control" />
+        <span asp-validation-for="AnketDetay" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-check">
+            <input asp-for="AnketVisibility" class="form-check-input" />
+            <label class="form-check-label">Anketi Herkese Açık Yap</label>
+        </div>
+    </div>
+   
+ 
+ 
+   
+
+
+
+    
+   
+
+
+    <div>
+        <button type="submit" class="btn btn-primary" onclick="submitForm()">Anketi Oluştur</button>
+       
+     </div>
+ </form>

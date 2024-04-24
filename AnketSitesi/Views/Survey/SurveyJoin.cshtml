@@ -1,0 +1,180 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+
+@model SurveyReply
+
+
+@ViewBag.Mesaj
+@if(Model.SoruListele.Count==0)
+{
+    <div class="alert alert-danger" role="alert">
+        Bu Anketin Soruları Henüz Hazır Değil
+    </div>
+
+}
+else
+{
+    
+
+@if (ViewBag.Mesaj == null)
+{
+
+
+
+
+
+    <h2>Anket Cevaplama</h2>
+
+    <div class="mb-3">
+        <div class="mb-1">
+            <label class="form-label"><b>@Model.AnketListele.AnketAdi</b></label>
+
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label"><b>Anket Detayı</b></label>
+
+        </div>
+        <div class="mb-1">
+            <label class="form-label"><b>@Model.AnketListele.AnketDetay</b></label>
+
+        </div>
+        <div class="mb-1">
+            <label class="form-label"><b>Oluşturan Kullanıcı</b></label>
+
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label"><b>@Model.AnketListele.CreatedBy</b></label>
+
+        </div>
+
+    </div>
+
+    
+        var index = 0;
+    
+
+    <div class="mb-3">
+        <form method="post">
+            @foreach (var sorular in Model.SoruListele)
+            {
+                @if (sorular.SoruTipi == "1")
+                {
+                    <div class="mb-2">
+                        Soru
+                        <div>
+
+
+                            <div class="mb-3">
+                                <label  class="form-label fw-bold">@sorular.Soru</label>
+                                <textarea  class="form-control" id="@sorular.SoruId" asp-for="Cevaplar[index].Cevap" maxlength="200"></textarea>
+                                <div class="form-text">En Fazla 250 Karakter</div>
+                                <input type="hidden" asp-for="Cevaplar[index].UserName" value="@User.Identity.Name">
+                                <input type="hidden" asp-for="Cevaplar[index].SorularId" value="@sorular.SoruId">
+
+
+
+                                @{
+                                    index++;
+                                }
+
+
+
+
+
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                } 
+                @if (sorular.SoruTipi == "2")
+                {
+                    <div class="mb-3">
+                        <label  class="form-label fw-bold">@sorular.Soru</label>
+                        @foreach (var secenek in Model.SecenekListele)
+                        {
+
+                        
+                            @if (sorular.SoruId == secenek.SorularId)
+                            {
+                                <div class="form-check">
+                                  
+                                    <input class="form-check-input" type="radio" asp-for="Cevaplar[index].Cevap" id="@index" value="@secenek.Secenek">
+                                   
+                                    <label class="form-check-label" for="@index">
+
+                                        @secenek.Secenek
+                                    </label>
+                                    <input type="hidden" asp-for="Cevaplar[index].UserName" value="@User.Identity.Name">
+                                    <input type="hidden" asp-for="Cevaplar[index].SorularId" value="@sorular.SoruId">
+
+                                </div>
+                            }
+
+                        }
+                        @{
+                            index++;
+                        
+                        }
+                    </div>
+                }
+                @if (sorular.SoruTipi == "3")
+                {
+                    <div class="mb-3">
+                        <label  class="form-label fw-bold">@sorular.Soru</label>
+                        @foreach (var secenek in Model.SecenekListele)
+                        {
+                            @if (sorular.SoruId == secenek.SorularId)
+                            {
+                                <div class="form-check">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" asp-for="Cevaplar[index].Cevap" id="@secenek.SecenekId" value="@secenek.Secenek" >
+                                        <label class="custom-control-label" for="@secenek.SecenekId">@secenek.Secenek</label>
+                                        <input type="hidden" asp-for="Cevaplar[index].UserName" value="@User.Identity.Name">
+                                        <input type="hidden" asp-for="Cevaplar[index].SorularId" value="@sorular.SoruId">
+                                    </div>
+                                </div>
+                            index++;
+                            }
+                            
+                                
+                            
+
+                        }
+                    </div>
+
+                }
+
+
+
+            }
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="hidden" asp-for="Cevaplamadurumu.UserName" value="@User.Identity.Name" />
+                    <input type="hidden" asp-for="Cevaplamadurumu.AnketId"  value="@Model.AnketListele.AnketId"/>
+                    <input type="hidden" asp-for="Cevaplamadurumu.OnayTarihi" value="@DateTime.Now"/>
+                    <input asp-for="Cevaplamadurumu.Onay" class="form-check-input"  required/>
+                    <label class="form-check-label">Onaylama</label>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Gönder</button>
+
+
+
+        </form>
+    </div>
+
+
+
+}
+ }

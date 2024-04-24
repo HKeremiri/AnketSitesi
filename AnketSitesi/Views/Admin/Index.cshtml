@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+@model AdminPanelIndexViewModel
+
+<h2>Admin Paneli</h2>
+
+<p>Cevaplanan Anket Sayısı @Model.CevapListesi.Count</p>
+
+<p>Oluşturulan Anket Sayısı @Model.AnketListesi.Count</p>
+
+<p>Kayıtlı Kullanıcı Sayısı @Model.UserList.Count</p>
+<a asp-action="Index2" asp-controller="Home">Anasayfaya Dön</a>
+
+<a asp-controller="Users" asp-action="Index">Kullanıcı Listesi</a>
+
+<a asp-controller="Roles" asp-action="Create">Roller</a>
+
+
+

@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+@model SurveyAnswersViewModel
+<h2><b>Anket Cevapları</b></h2>
+
+
+
+<div class="alert alert-primary" role="alert">
+    Anket Adı<hr>
+    @Model.Anket.AnketAdi
+
+</div>
+
+<div class="alert alert-primary" role="alert">
+    Oluşturan Kullanıcı<hr>
+    @Model.Anket.CreatedBy
+
+</div>
+
+
+<div class="alert alert-success" role="alert">
+  
+    <p>Cevaplanma Tarihi</p>
+    <hr>
+    <p class="mb-0">@Model.CevapDurumuList.OnayTarihi</p>
+</div>
+
+<div class="alert alert-success" role="alert">
+
+    <p>Cevaplayan Kullanıcı</p>
+    <hr>
+    <p class="mb-0">@Model.CevapDurumuList.UserName</p>
+</div>
+
+
+
+@foreach(var sorular in Model.SoruList)
+{
+    <div class="alert alert-primary" role="alert">
+        @sorular.Soru
+    </div>
+    @foreach (var cevaplar in Model.CevapList)
+    {
+        if(cevaplar.SorularId==sorular.SoruId)
+        {
+            <div class="alert alert-success" role="alert">
+
+                <p>@cevaplar.Cevap</p>
+                
+            </div>
+            
+        }
+    }
+    
+   
+}

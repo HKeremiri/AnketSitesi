@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+@model AddQuestions
+<h2>Soru Ekleme</h2>
+
+<div class="mb-3">
+    <div class="mb-1">  <label class="form-label"><b>AnketAdi</b></label>   </div>
+    <div class="mb-1">  <label class="form-label"><b>@Model.Anket.AnketAdi</b></label> </div>
+   
+
+
+</div>
+<form method="post" >
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Anket" value="@Model.Anket" />
+
+   <input type="hidden" asp-for="Anket.AnketId" value="@Model.Anket.AnketId" />
+
+    <input type="hidden" asp-for="Sorular.AnketId" value="@Model.Anket.AnketId" />
+
+
+
+   
+
+    <div class="mb-3">
+        <label class="form-label"><b>Yeni Soru Ekle</b></label>
+        
+        <input asp-for="Sorular.Soru" type="text" class="form-control mb-1" required/>
+        <label>Soru Tipini Seçiniz</label>
+        <select asp-for="Sorular.SoruTipi" class="form-control form-control-sm">
+
+            <option value="1">Açık Uçlu</option>
+            <option value="2">Seçmeli</option>
+            <option value="3">Çok seçmeli</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ekle</button>
+
+</form>
+
+
+
+
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Soru</th>
+                <th>Soru Tipi</th>
+                <th>Seçenek Ekle</th>
+                <th>Soruyu Sil</th>
+
+            </tr>
+        </thead>
+        <tbody>
+   
+        @if (Model.SoruList != null)
+        {
+            @foreach (var sorular in Model.SoruList)
+            {
+                <tr>
+
+
+                    <td>@sorular.Soru</td>
+                    @if (sorular.SoruTipi == "1")
+                    {
+                        <td>Açık Uçlu</td>
+                            
+
+                             }
+                    @if (sorular.SoruTipi == "2")
+                    {
+                        <td>Seçmeli</td>
+
+
+                    }
+                    @if (sorular.SoruTipi == "3")
+                    {
+                        <td>Çok Seçmeli</td>
+
+
+                    }
+
+                        @if (sorular.SoruTipi=="3" || sorular.SoruTipi=="2")
+                    {
+                        <td>
+
+
+
+                            <form  asp-action="AddOptions" asp-route-id="@sorular.SoruId" method="get">
+                                <input type="hidden" value="@sorular.SoruId" name="SoruId" />
+                                <input type="hidden" value="@Model.Anket.AnketId" name="AnketId" />
+                                <button type="submit" class="btn btn-primary">Seçenek Ekle</button>
+                        </form>
+                        
+                    </td>
+                    }
+                    else
+                    {
+                        <td>   </td>
+                    }
+
+                    <td>
+                      <form asp-action="DeleteQuestion" method="post">
+
+                        <input type="hidden" value="@sorular.SoruId" name="SoruId" />
+                        <input type="hidden" value="@Model.Anket.AnketId" name="AnketId"/>
+                            <button type="submit" class="btn btn-danger" onclick="if (!confirm('Emin misiniz?')) { return false; }">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+    </table>

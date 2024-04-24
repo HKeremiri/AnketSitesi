@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Pollster</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+    <link rel="stylesheet" href="/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+	<link href="~/datatables/datatables.min.css" rel="stylesheet" />
+	<script src="~/datatables/datatables.min.js"></script>
+    <link rel="stylesheet" href="/css/aos.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+
+    <div class="site-wrap">
+        <header class="site-navbar" role="banner">
+            <div class="site-navbar-top">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                        </div>
+
+                        <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+
+                            <a asp-controller="Home" asp-action="Index2" class="navbar-brand">
+                                <img src="/images/Pollsterbeyazmini.png" alt="Shortly's logo" class="logo" />
+                            </a>
+
+                        </div>
+
+                        <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+                            <div class="site-top-icons">
+                                <ul>
+                                    @if (User.Identity?.IsAuthenticated == true)
+                                    {
+                                        <li><a> Merhaba, @User.Identity.Name</a></li>
+
+                                        <li>
+                                            <a class="nav-link" asp-controller="Survey" asp-action="MySurvey">Anketlerim</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" asp-route-id=@User.Identity.Name asp-controller="Account" asp-action="AccountEdit">Profilim</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-controller="Account" asp-action="Login"><span class="icon icon-person"></span></a></li>
+                                        <li><a asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
+                                    }
+                                    <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+                <div class="container">
+                    <ul class="site-menu js-clone-nav d-none d-md-block">
+                        <li >
+                            <a asp-controller="Home" asp-action="Index2">Anasayfa</a>
+                        </li>
+                        <li class="has-children">
+                            <a asp-controller="Survey" asp-action="GlobalSurveys">Anketler</a>
+                            <ul class="dropdown">
+                                <li><a asp-controller="Survey" asp-action="SurveyCreate">Anket Oluştur</a></li>
+                                <li><a asp-controller="Survey" asp-action="GlobalSurveys">Anket Listele</a></li>
+                                <li><a asp-controller="Survey" asp-action="Search">Ankete Katıl</a></li>
+                            </ul>
+                        </li>
+                        <li>
+
+                          
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                @if (User.IsInRole("Admin"))
+                                {
+                                      <a asp-controller="Admin" asp-action="Index">Admin Paneli</a>
+                                    
+                                }
+
+                            }
+                        </li>
+                        <li><a href="#">HAKKINDA</a></li>
+                        <li>
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                <a asp-controller="Account" asp-action="Logout">ÇIKIŞ</a>
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+   @RenderBody()
+
+
+
+        <footer class="site-footer border-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="footer-heading mb-4">Yönlendirmeler</h3>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a asp-controller="Home" asp-action="Index2">ANASAYFA</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">ANKETLER</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">HAKKINDA</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">İletişim Bilgileri</h3>
+                            <ul class="list-unstyled">
+                                <li class="address">Trakya Üniversitesi Yönetim Bilişim Sistemleri</li>
+                                <li class="phone"><a href="">+905420000000</a></li>
+                                <li class="email">emailaddress@domain.com</li>
+                            </ul>
+                        </div>
+
+                        <div class="block-7">
+                            <form action="#" method="post">
+
+                                <div class="form-group">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <p>
+                   
+                            Copyright PollSter
+                           
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/fontawesome/js/jquery-3.3.1.min.js"></script>
+    <script src="/fontawesome/js/jquery-ui.js"></script>
+    <script src="/fontawesome/js/popper.min.js"></script>
+    <script src="/fontawesome/js/bootstrap.min.js"></script>
+    <script src="/fontawesome/js/owl.carousel.min.js"></script>
+    <script src="/fontawesome/js/jquery.magnific-popup.min.js"></script>
+    <script src="/fontawesome/js/aos.js"></script>
+
+    <script src="/fontawesome/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+@model IEnumerable<Anket>
+Anketlerim
+
+
+
+<table class="table" id="MySurveyTable">
+ 
+    <thead class=" table-dark" >
+        <tr>
+            <th >Anket Adı</th>
+            <th>Oluşturan Kullanıcı</th>
+            <th>Anket Açıklama</th>
+            <th>Anket Düzenle</th>
+            <th>Sorular</th>
+            <th>Anket Detayı</th>
+            <th>Silme</th>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var anket in Model)
+        {
+            <tr>
+                <td >@anket.AnketAdi</td>
+                <td>@anket.CreatedBy</td>
+                <td>@anket.AnketDetay</td>
+                <td><a asp-action="SurveyEdit" asp-route-id="@anket.AnketId"  class="btn btn-primary">Düzenle</a></td>
+                <td>
+                    <form asp-action="AddQuestions" asp-route-id="@anket.AnketId" method="get" >
+                        <input type="hidden" value="@anket.AnketId" name="AnketId" />
+                        
+                        <button class="btn btn-primary" type="submit">Soru Düzenle</button>
+                    </form>
+                </td>
+                <td ><a asp-action="SurveyDetails" asp-route-id="@anket.AnketId" class="btn btn-primary">Detaylar</a></td>
+
+
+                <th>
+                    <form asp-action="MySurveyDeleteSurvey" method="post">
+
+
+                        <input type="hidden" value="@anket.AnketId" name="AnketId" />
+                        <button type="submit" class="btn btn-danger" onclick="if (!confirm('Emin misiniz?')) { return false; }">Sil</button>
+                    </form>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    new DataTable('#MySurveyTable', {
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.10.13/i18n/Turkish.json'
+        }
+    });
+</script>

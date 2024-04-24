@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+
+@model RegisterViewModel
+
+<form  asp-action="Register" asp-controller="Account" method="post">
+    <div asp-validation-summary="All"  class="text-danger"></div>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" asp-for="Email" placeholder="name@example.com">
+        <label asp-for="Email">E-mail Adresi </label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" asp-for="UserName" >
+        <label asp-for="UserName">Kullanıcı Adı</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" asp-for="FullName">
+        <label asp-for="FullName">İsim ve Soyisim</label>
+    </div>
+
+   
+   
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" asp-for="Password" placeholder="">
+        <label asp-for="Password">Şifre</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="">
+        <label asp-for="ConfirmPassword">Şifre tekrar</label>
+    </div>
+
+
+    <div class="form-floating mb-3">
+        <button type="submit" class="btn btn-outline-success">Kayıt Ol</button>
+    </div>
+</form>

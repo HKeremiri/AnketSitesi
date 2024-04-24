@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+@model AddOptionsViewModel
+<h2>Seçenek Ekleme</h2>
+
+<div class="mb-3">
+    <div class="mb-1">
+        <label class="form-label"><b>Soru</b></label>
+    </div>
+    <div class="mb-1">    <label class="form-label"><b>@Model.Sorular.Soru</b></label>   </div>
+   
+
+
+</div>
+<form method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Sorular" value="@Model.Sorular" />
+
+    <input type="hidden" asp-for="Sorular.SoruId" value="@Model.Sorular.SoruId" />
+
+    <input type="hidden" asp-for="Secenekler.SorularId" value="@Model.Sorular.SoruId" />
+
+
+
+
+
+    <div class="mb-1">
+        <label class="form-label"><b>Seçenek Ekle</b></label>
+
+        <input asp-for="Secenekler.Secenek" type="text" class="form-control mb-1" required />
+      
+
+    <button type="submit" class="btn btn-primary">Ekle</button>
+	</div>
+</form>
+
+<form asp-action="AddQuestions" method="get">
+   <div class="mb-3">
+
+  
+    <input type="hidden" name="anketId" value="@Model.Sorular.AnketId" />
+<button type="submit"   class="btn btn-primary">Geri Dön  </button>
+	</div>
+	
+</form>
+
+
+
+<table>
+    <thead >
+        <tr>
+
+            <th>Seçenek</th>
+            
+            
+            <th>Sil</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.SeceneklerList != null)
+        {
+            @foreach (var sorular in Model.SeceneklerList)
+            {
+                <tr>
+
+
+                    <td>@sorular.Secenek</td>
+                  
+
+                    <td>
+                        <form asp-action="DeleteOption" method="post">
+
+                            <input type="hidden" value="@sorular.SorularId" name="SoruId" />
+                            <input type="hidden" value="@sorular.SecenekId" name="SecenekId" />
+                            <button type="submit" class="btn btn-danger" onclick="if (!confirm('Emin misiniz?')) { return false; }">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>

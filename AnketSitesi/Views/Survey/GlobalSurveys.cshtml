@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model IEnumerable<Anket>
+
+<table class="table" id="GlobalAnket">
+    <thead class="table-dark">
+        <tr>
+            <td>Oluşturan</td>
+            <td>Anket adı</td>
+            <td>Anket açıklaması</td>
+           
+            <td>Katılım</td>
+            <td>Düzenle</td>
+            <td>Detaylar</td>
+            <td>Sil</td>
+        </tr>
+
+    </thead>
+    <tbody>
+    
+
+          
+              @foreach (var anket in Model)
+        {
+        <tr>
+            <td>@anket.CreatedBy</td>
+            <td>@anket.AnketAdi</td>
+            <td>@anket.AnketDetay</td>
+
+
+                <td><a asp-action="SurveyJoin" asp-route-id="@anket.AnketId" class="btn btn-primary">Katıl</a></td>
+                <td><a asp-action="SurveyEdit" asp-route-id="@anket.AnketId" class="btn btn-primary">Düzenle</a></td>
+                <td><a asp-action="SurveyDetails" asp-route-id="@anket.AnketId" class="btn btn-primary">Detaylar</a></td>
+           
+                <td>
+                    <form asp-action="GlobalDeleteSurvey" method="post">
+
+                       
+                        <input type="hidden" value="@anket.AnketId" name="AnketId" />
+                        <button type="submit" class="btn btn-danger" onclick="if (!confirm('Emin misiniz?')) { return false; }">Sil</button>
+                    </form>
+                </td>
+        </tr>  }
+      
+
+
+
+
+    </tbody>
+</table>
+
+
+<script>
+    new DataTable('#GlobalAnket', {
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.10.13/i18n/Turkish.json'
+        }
+    });
+</script>
